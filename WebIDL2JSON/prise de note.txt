@@ -1,0 +1,3 @@
+https://github.com/w3c/reffy
+
+node .\node_modules\reffy\src\cli\parse-webidl.js "https://immersive-web.github.io/webxr/" > webxr.idl
