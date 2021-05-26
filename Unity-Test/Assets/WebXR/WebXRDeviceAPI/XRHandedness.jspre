@@ -1,4 +1,7 @@
-WebXRDeviceAPI_XRHandedness = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRHandedness = {
 "none":0,
 "left":1,
 "right":2,

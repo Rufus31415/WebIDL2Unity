@@ -8,6 +8,8 @@ public class Test : MonoBehaviour
 {
     private XRCylinderLayerInit _a;
 
+    private EnumArray<XREye> _arrayEnum;
+
 
     int[] testArray;
 
@@ -38,8 +40,36 @@ public class Test : MonoBehaviour
             Debug.Log("_a.CentralAngle = " + _a.CentralAngle);
         }
 
-        
-    }
+        if (GUI.Button(new Rect(300, 0, 100, 100), "get"))
+        {
+            _arrayEnum = new EnumArray<XREye>();
 
+            _arrayEnum.Add(XREye.None);
+            _arrayEnum.Add(XREye.Right);
+
+            Debug.Log("_arrayEnum.Count = " + _arrayEnum.Count);
+
+            _arrayEnum.Remove(XREye.Right);
+
+
+            Debug.Log("_arrayEnum.Count = " + _arrayEnum.Count);
+            Debug.Log("_arrayEnum[0] = " + _arrayEnum[0]);
+
+            _arrayEnum.Add(XREye.Left);
+
+            Debug.Log("_arrayEnum.Count = " + _arrayEnum.Count);
+            Debug.Log("_arrayEnum[1] = " + _arrayEnum[1]);
+
+        }
+
+        if (GUI.Button(new Rect(400, 0, 100, 100), "navigator"))
+        {
+
+            var change = NativeJS.Navigator.Xr.IsSessionSupported(XRSessionMode.ImmersiveAr);
+
+           
+        }
+
+    }
 
 }

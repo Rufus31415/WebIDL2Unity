@@ -1,4 +1,7 @@
-WebXRAugmentedRealityModule_XREnvironmentBlendMode = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XREnvironmentBlendMode = {
 "opaque":0,
 "alpha-blend":1,
 "additive":2,

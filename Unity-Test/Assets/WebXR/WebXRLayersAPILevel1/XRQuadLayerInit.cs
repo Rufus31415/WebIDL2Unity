@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRQuadLayerInit : WebIDL2UnityObject {
+public  class XRQuadLayerInit : XRLayerInit {
 
 
     internal XRQuadLayerInit (int id) : base(id) {}
@@ -12,11 +13,11 @@ public  class XRQuadLayerInit : WebIDL2UnityObject {
 
     public XRTextureType TextureType {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "textureType");
+            var value = WebIDL2Unity_XRTextureType_get(this.ID, "textureType");
             return (XRTextureType)value;
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "textureType", (int)value);
+            WebIDL2Unity_XRTextureType_set(this.ID, "textureType", (int)value);
         }
     }
 
@@ -24,11 +25,11 @@ public  class XRQuadLayerInit : WebIDL2UnityObject {
 
     public XRRigidTransform Transform {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "transform");
+            var value = WebIDL2Unity_reference_get(this.ID, "transform");
             return value == 0 ? null : new XRRigidTransform(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "transform", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "transform", value==null ? 0 : value.ID);
         }
     }
 

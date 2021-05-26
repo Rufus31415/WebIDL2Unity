@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRLayerEventInit : WebIDL2UnityObject {
+public  class XRLayerEventInit : EventInit {
 
 
     internal XRLayerEventInit (int id) : base(id) {}
@@ -12,11 +13,11 @@ public  class XRLayerEventInit : WebIDL2UnityObject {
 
     public XRLayer Layer {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "layer");
+            var value = WebIDL2Unity_reference_get(this.ID, "layer");
             return value == 0 ? null : new XRLayer(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "layer", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "layer", value==null ? 0 : value.ID);
         }
     }
 

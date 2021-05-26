@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRMediaLayerInit : WebIDL2UnityObject {
@@ -12,11 +13,11 @@ public  class XRMediaLayerInit : WebIDL2UnityObject {
 
     public XRSpace Space {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "space");
+            var value = WebIDL2Unity_reference_get(this.ID, "space");
             return value == 0 ? null : new XRSpace(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "space", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "space", value==null ? 0 : value.ID);
         }
     }
 
@@ -24,11 +25,11 @@ public  class XRMediaLayerInit : WebIDL2UnityObject {
 
     public XRLayerLayout Layout {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "layout");
+            var value = WebIDL2Unity_XRLayerLayout_get(this.ID, "layout");
             return (XRLayerLayout)value;
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "layout", (int)value);
+            WebIDL2Unity_XRLayerLayout_set(this.ID, "layout", (int)value);
         }
     }
 

@@ -1,4 +1,7 @@
-WebXRHitTestModule_XRHitTestTrackableType = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRHitTestTrackableType = {
 "point":0,
 "plane":1,
 "mesh":2,

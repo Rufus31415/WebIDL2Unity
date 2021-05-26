@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRCylinderLayer : WebIDL2UnityObject {
+public  class XRCylinderLayer : XRCompositionLayer {
 
 
     internal XRCylinderLayer (int id) : base(id) {}
@@ -10,11 +11,11 @@ public  class XRCylinderLayer : WebIDL2UnityObject {
 
     public XRSpace Space {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "space");
+            var value = WebIDL2Unity_reference_get(this.ID, "space");
             return value == 0 ? null : new XRSpace(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "space", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "space", value==null ? 0 : value.ID);
         }
     }
 
@@ -22,11 +23,11 @@ public  class XRCylinderLayer : WebIDL2UnityObject {
 
     public XRRigidTransform Transform {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "transform");
+            var value = WebIDL2Unity_reference_get(this.ID, "transform");
             return value == 0 ? null : new XRRigidTransform(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "transform", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "transform", value==null ? 0 : value.ID);
         }
     }
 
@@ -70,11 +71,11 @@ public  class XRCylinderLayer : WebIDL2UnityObject {
 
     public EventHandler Onredraw {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "onredraw");
+            var value = WebIDL2Unity_reference_get(this.ID, "onredraw");
             return value == 0 ? null : new EventHandler(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "onredraw", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "onredraw", value==null ? 0 : value.ID);
         }
     }
 

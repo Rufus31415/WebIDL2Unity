@@ -1,4 +1,7 @@
-WebXRDeviceAPI_XRReferenceSpaceType = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRReferenceSpaceType = {
 "viewer":0,
 "local":1,
 "local-floor":2,

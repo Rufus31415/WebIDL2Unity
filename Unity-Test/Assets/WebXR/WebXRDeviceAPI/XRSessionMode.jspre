@@ -1,4 +1,7 @@
-WebXRDeviceAPI_XRSessionMode = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRSessionMode = {
 "inline":0,
 "immersive-vr":1,
 "immersive-ar":2,

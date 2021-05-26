@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRLightProbe : WebIDL2UnityObject {
+public  class XRLightProbe : EventTarget {
 
 
     internal XRLightProbe (int id) : base(id) {}
@@ -10,7 +11,7 @@ public  class XRLightProbe : WebIDL2UnityObject {
 
     public XRSpace ProbeSpace {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "probeSpace");
+            var value = WebIDL2Unity_reference_get(this.ID, "probeSpace");
             return value == 0 ? null : new XRSpace(value);
         }
     }
@@ -19,11 +20,11 @@ public  class XRLightProbe : WebIDL2UnityObject {
 
     public EventHandler Onreflectionchange {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "onreflectionchange");
+            var value = WebIDL2Unity_reference_get(this.ID, "onreflectionchange");
             return value == 0 ? null : new EventHandler(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "onreflectionchange", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "onreflectionchange", value==null ? 0 : value.ID);
         }
     }
 

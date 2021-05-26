@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRPose : WebIDL2UnityObject {
@@ -10,7 +11,7 @@ public  class XRPose : WebIDL2UnityObject {
 
     public XRRigidTransform Transform {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "transform");
+            var value = WebIDL2Unity_reference_get(this.ID, "transform");
             return value == 0 ? null : new XRRigidTransform(value);
         }
     }
@@ -19,7 +20,7 @@ public  class XRPose : WebIDL2UnityObject {
 
     public DOMPointReadOnly LinearVelocity {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "linearVelocity");
+            var value = WebIDL2Unity_reference_get(this.ID, "linearVelocity");
             return value == 0 ? null : new DOMPointReadOnly(value);
         }
     }
@@ -28,7 +29,7 @@ public  class XRPose : WebIDL2UnityObject {
 
     public DOMPointReadOnly AngularVelocity {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "angularVelocity");
+            var value = WebIDL2Unity_reference_get(this.ID, "angularVelocity");
             return value == 0 ? null : new DOMPointReadOnly(value);
         }
     }

@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRMediaEquirectLayerInit : WebIDL2UnityObject {
+public  class XRMediaEquirectLayerInit : XRMediaLayerInit {
 
 
     internal XRMediaEquirectLayerInit (int id) : base(id) {}
@@ -12,11 +13,11 @@ public  class XRMediaEquirectLayerInit : WebIDL2UnityObject {
 
     public XRRigidTransform Transform {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "transform");
+            var value = WebIDL2Unity_reference_get(this.ID, "transform");
             return value == 0 ? null : new XRRigidTransform(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "transform", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "transform", value==null ? 0 : value.ID);
         }
     }
 

@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRSubImage : WebIDL2UnityObject {
@@ -10,7 +11,7 @@ public  class XRSubImage : WebIDL2UnityObject {
 
     public XRViewport Viewport {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "viewport");
+            var value = WebIDL2Unity_reference_get(this.ID, "viewport");
             return value == 0 ? null : new XRViewport(value);
         }
     }

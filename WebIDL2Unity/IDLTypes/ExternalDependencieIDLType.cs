@@ -27,9 +27,12 @@ namespace WebIDL2Unity
 
                 csFile.Write($"public {(IsWebIDLPartial ? "partial " : "")}class ");
                 csFile.Write(Name);
-                csFile.WriteLine(" : WebIDL2UnityObject {");
+                csFile.Write(" : WebIDL2UnityObject");
 
-                csFile.WriteLine();
+                // Check if there is a typedef 
+                csFile.Write(string.Join("", context.IDLObjects.OfType<TypedefIDLType>().Where(x => x.Types.Contains(Name)).Select(x => $", {x.Name}").ToArray()));
+
+                csFile.WriteLine("{");
 
                 csFile.Write("internal ");
                 csFile.Write(Name);

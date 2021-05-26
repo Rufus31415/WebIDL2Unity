@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRHand : WebIDL2UnityObject {
@@ -17,4 +18,12 @@ public  class XRHand : WebIDL2UnityObject {
     }
 
 
+
+    [DllImport("__Internal")]
+    private static extern int XRHand_Get(int id, int key);
+
+    public XRJointSpace Get(XRHandJoint key) {
+        var value = XRHand_Get(this.ID, (int)key);
+        return value == 0 ? null : new XRJointSpace(value);
+    }
 }

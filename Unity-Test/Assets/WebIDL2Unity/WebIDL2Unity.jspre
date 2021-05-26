@@ -14,8 +14,12 @@ _WebIDL2Unity = {
         }
     },
     deleteReference: function (id) {
-        console.log("Delete object : ");
+        console.group("Delete object");
         console.log(id);
+        console.log(this.references[id]);
+        console.groupEnd();
         if (id !== 0) delete this.references[id];
     }
 }
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}

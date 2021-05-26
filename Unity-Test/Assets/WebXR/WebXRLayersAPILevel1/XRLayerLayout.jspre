@@ -1,4 +1,7 @@
-WebXRLayersAPILevel1_XRLayerLayout = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRLayerLayout = {
 "default":0,
 "mono":1,
 "stereo":2,

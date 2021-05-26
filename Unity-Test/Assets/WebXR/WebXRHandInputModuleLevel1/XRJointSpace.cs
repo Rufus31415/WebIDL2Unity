@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRJointSpace : WebIDL2UnityObject {
+public  class XRJointSpace : XRSpace {
 
 
     internal XRJointSpace (int id) : base(id) {}
@@ -10,7 +11,7 @@ public  class XRJointSpace : WebIDL2UnityObject {
 
     public XRHandJoint JointName {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "jointName");
+            var value = WebIDL2Unity_XRHandJoint_get(this.ID, "jointName");
             return (XRHandJoint)value;
         }
     }

@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRDOMOverlayState : WebIDL2UnityObject {
@@ -12,11 +13,11 @@ public  class XRDOMOverlayState : WebIDL2UnityObject {
 
     public XRDOMOverlayType Type {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "type");
+            var value = WebIDL2Unity_XRDOMOverlayType_get(this.ID, "type");
             return (XRDOMOverlayType)value;
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "type", (int)value);
+            WebIDL2Unity_XRDOMOverlayType_set(this.ID, "type", (int)value);
         }
     }
 

@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRWebGLSubImage : WebIDL2UnityObject {
+public  class XRWebGLSubImage : XRSubImage {
 
 
     internal XRWebGLSubImage (int id) : base(id) {}
@@ -10,7 +11,7 @@ public  class XRWebGLSubImage : WebIDL2UnityObject {
 
     public WebGLTexture ColorTexture {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "colorTexture");
+            var value = WebIDL2Unity_reference_get(this.ID, "colorTexture");
             return value == 0 ? null : new WebGLTexture(value);
         }
     }
@@ -19,7 +20,7 @@ public  class XRWebGLSubImage : WebIDL2UnityObject {
 
     public WebGLTexture DepthStencilTexture {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "depthStencilTexture");
+            var value = WebIDL2Unity_reference_get(this.ID, "depthStencilTexture");
             return value == 0 ? null : new WebGLTexture(value);
         }
     }

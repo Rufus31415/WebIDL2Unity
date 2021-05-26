@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public partial  class XRRenderState : WebIDL2UnityObject {
@@ -37,7 +38,7 @@ public partial  class XRRenderState : WebIDL2UnityObject {
 
     public XRWebGLLayer BaseLayer {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "baseLayer");
+            var value = WebIDL2Unity_reference_get(this.ID, "baseLayer");
             return value == 0 ? null : new XRWebGLLayer(value);
         }
     }

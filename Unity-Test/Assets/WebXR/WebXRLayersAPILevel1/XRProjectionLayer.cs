@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRProjectionLayer : WebIDL2UnityObject {
+public  class XRProjectionLayer : XRCompositionLayer {
 
 
     internal XRProjectionLayer (int id) : base(id) {}

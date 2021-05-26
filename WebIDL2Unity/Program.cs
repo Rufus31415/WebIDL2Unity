@@ -16,11 +16,13 @@ namespace WebIDL2Unity
 
             var idlTypes = new List<IDLType>();
 
-            idlTypes.Add(new DOMStringIDLType());
+            idlTypes.Add(new UndefinedIDLType());
 
-            idlTypes.Add(new AnyIDLType());
+            var stringIDLType = idlTypes.AddNew(new DOMStringIDLType());
 
-            idlTypes.Add(new PrimitiveIDLType("boolean", "bool"));
+            var anyIDLType = idlTypes.AddNew(new AnyIDLType());
+
+            var booleanIDLType= idlTypes.AddNew(new PrimitiveIDLType("boolean", "bool"));
 
             var doubleIDLType = idlTypes.AddNew(new PrimitiveIDLType("double", "double"));
             var floatIDLType = idlTypes.AddNew(new PrimitiveIDLType("float", "float"));
@@ -31,15 +33,19 @@ namespace WebIDL2Unity
             var uintIDLType = idlTypes.AddNew(new PrimitiveIDLType("unsigned short", "uint"));
             var intIDLType = idlTypes.AddNew(new PrimitiveIDLType("short", "int"));
 
-            idlTypes.Add(new FrozenArrayIDLType(floatIDLType, "Float32Array"));
-            idlTypes.Add(new FrozenArrayIDLType(sbyteIDLType, "Int8Array"));
-            idlTypes.Add(new FrozenArrayIDLType(intIDLType, "Int16Array"));
-            idlTypes.Add(new FrozenArrayIDLType(longIDLType, "Int32Array"));
-            idlTypes.Add(new FrozenArrayIDLType(byteIDLType, "Uint8Array"));
-            idlTypes.Add(new FrozenArrayIDLType(uintIDLType, "Uint16Array"));
-            idlTypes.Add(new FrozenArrayIDLType(ulongIDLType, "Uint32Array"));
-            idlTypes.Add(new FrozenArrayIDLType(byteIDLType, "Uint8ClampedArray"));
-            idlTypes.Add(new FrozenArrayIDLType(doubleIDLType, "Float64Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(floatIDLType, "Float32Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(sbyteIDLType, "Int8Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(intIDLType, "Int16Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(longIDLType, "Int32Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(byteIDLType, "Uint8Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(uintIDLType, "Uint16Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(ulongIDLType, "Uint32Array"));
+            idlTypes.Add(new PrimitiveArrayIDLType(byteIDLType, "Uint8ClampedArray"));
+            idlTypes.Add(new PrimitiveArrayIDLType(doubleIDLType, "Float64Array"));
+
+            idlTypes.Add(new PrimitiveArrayIDLType(booleanIDLType, "BoolArray"));
+            idlTypes.Add(new PrimitiveArrayIDLType(anyIDLType, "StringArray")); // first approach : any is string
+            idlTypes.Add(new PrimitiveArrayIDLType(stringIDLType, "StringArray"));
 
             var jsonMergeSettings = new JsonMergeSettings()
             {
@@ -87,6 +93,9 @@ namespace WebIDL2Unity
                                 break;
 
                             case "callback":
+                                continue;
+
+                                // TODO : implement callback
                                 idlTypes.Add(new CallbackIDLType(jProperty, module));
 
                                 break;
@@ -128,13 +137,17 @@ namespace WebIDL2Unity
                     idlTypes.Add(new ExternalDependencieIDLType(externalDependency, false));
                 }
                 // particular case of external dependency with additionnal members defined in another class
-                else if(idlTypes.All(x => !string.Equals(x.Name, externalDependency) || (x is InterfaceIDLType && ((InterfaceIDLType)x).IsWebIDLPartial)))
+                else if (idlTypes.All(x => !string.Equals(x.Name, externalDependency) || (x is InterfaceIDLType && ((InterfaceIDLType)x).IsWebIDLPartial)))
                 {
                     idlTypes.Add(new ExternalDependencieIDLType(externalDependency, true));
                 }
             }
 
-            Directory.Delete(outputDir, true);
+            if (Directory.Exists(outputDir))
+            {
+                DeleteGeneratedFilesRecursive(outputDir);
+            }
+
             Directory.CreateDirectory(outputDir);
 
             var context = new GenerationContext();
@@ -144,6 +157,25 @@ namespace WebIDL2Unity
             foreach (var idlObject in idlTypes)
             {
                 idlObject.Generate(context);
+            }
+
+            Console.ReadKey();
+        }
+
+
+        private static void DeleteGeneratedFilesRecursive(string path)
+        {
+            foreach (var file in Directory.GetFiles(path))
+            {
+                // File to avoid
+                if (Path.GetExtension(file) == ".meta") continue;
+
+                File.Delete(file);
+            }
+
+            foreach (var dir in Directory.GetDirectories(path))
+            {
+                DeleteGeneratedFilesRecursive(dir);
             }
         }
 

@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRLightProbeInit : WebIDL2UnityObject {
@@ -12,11 +13,11 @@ public  class XRLightProbeInit : WebIDL2UnityObject {
 
     public XRReflectionFormat ReflectionFormat {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "reflectionFormat");
+            var value = WebIDL2Unity_XRReflectionFormat_get(this.ID, "reflectionFormat");
             return (XRReflectionFormat)value;
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "reflectionFormat", (int)value);
+            WebIDL2Unity_XRReflectionFormat_set(this.ID, "reflectionFormat", (int)value);
         }
     }
 

@@ -71,10 +71,10 @@ public abstract partial class WebIDL2UnityObject
                     jslibFile.Write($@"
 mergeInto(LibraryManager.library, {{
     {type.GetterName()} : function(parentID, fieldName){{
-       return _WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)];
+       return {type.JSToMarshal("_WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)]", false)};
     }},
     {type.SetterName()} : function(parentID, fieldName, value){{
-        _WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)] = value;
+        _WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)] = {type.MarshalToJS("value")};
     }}
 }});
 ");

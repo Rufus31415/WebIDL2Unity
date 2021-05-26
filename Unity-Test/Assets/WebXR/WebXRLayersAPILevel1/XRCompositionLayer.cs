@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRCompositionLayer : WebIDL2UnityObject {
+public  class XRCompositionLayer : XRLayer {
 
 
     internal XRCompositionLayer (int id) : base(id) {}
@@ -10,7 +11,7 @@ public  class XRCompositionLayer : WebIDL2UnityObject {
 
     public XRLayerLayout Layout {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "layout");
+            var value = WebIDL2Unity_XRLayerLayout_get(this.ID, "layout");
             return (XRLayerLayout)value;
         }
     }
@@ -58,4 +59,12 @@ public  class XRCompositionLayer : WebIDL2UnityObject {
     }
 
 
+
+    [DllImport("__Internal")]
+    private static extern int XRCompositionLayer_Destroy(int id);
+
+    public void Destroy() {
+        XRCompositionLayer_Destroy(this.ID);
+        
+    }
 }

@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRProjectionLayerInit : WebIDL2UnityObject {
@@ -12,11 +13,11 @@ public  class XRProjectionLayerInit : WebIDL2UnityObject {
 
     public XRTextureType TextureType {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "textureType");
+            var value = WebIDL2Unity_XRTextureType_get(this.ID, "textureType");
             return (XRTextureType)value;
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "textureType", (int)value);
+            WebIDL2Unity_XRTextureType_set(this.ID, "textureType", (int)value);
         }
     }
 
@@ -24,11 +25,11 @@ public  class XRProjectionLayerInit : WebIDL2UnityObject {
 
     public GLenum ColorFormat {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "colorFormat");
+            var value = WebIDL2Unity_reference_get(this.ID, "colorFormat");
             return value == 0 ? null : new GLenum(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "colorFormat", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "colorFormat", value==null ? 0 : value.ID);
         }
     }
 
@@ -36,11 +37,11 @@ public  class XRProjectionLayerInit : WebIDL2UnityObject {
 
     public GLenum DepthFormat {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "depthFormat");
+            var value = WebIDL2Unity_reference_get(this.ID, "depthFormat");
             return value == 0 ? null : new GLenum(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "depthFormat", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "depthFormat", value==null ? 0 : value.ID);
         }
     }
 

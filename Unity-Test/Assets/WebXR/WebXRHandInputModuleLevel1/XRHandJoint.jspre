@@ -1,4 +1,7 @@
-WebXRHandInputModuleLevel1_XRHandJoint = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRHandJoint = {
 "wrist":0,
 "thumb-metacarpal":1,
 "thumb-phalanx-proximal":2,

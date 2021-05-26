@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System;
+using System.IO;
 using System.Text;
 
 namespace WebIDL2Unity
@@ -8,16 +9,14 @@ namespace WebIDL2Unity
         protected string _module;
         public readonly string Name;
 
-        public string JSFullName => $"{_module}_{Name}";
-
         public static string NativeSetterName()
         {
-            return "WebIDL2Unity_short_set";
+            return "WebIDL2Unity_reference_set";
         }
 
         public static string NativeGetterName()
         {
-            return "WebIDL2Unity_short_get";
+            return "WebIDL2Unity_reference_get";
         }
 
         public virtual string GetterName()
@@ -39,10 +38,10 @@ namespace WebIDL2Unity
 
         public abstract void Generate(GenerationContext context);
 
-        public StreamWriter GetFile(string outputDirectory, string extension)
+        public StreamWriter GetFile(string outputDirectory, string extension, string prefix="")
         {
 
-            return new StreamWriter(Path.Combine(Directory.CreateDirectory(Path.Combine(outputDirectory, _module)).FullName, Name + "." + extension));
+            return new StreamWriter(Path.Combine(Directory.CreateDirectory(Path.Combine(outputDirectory, _module)).FullName, prefix + Name + "." + extension));
         }
 
         public virtual string GetMarshalType()
@@ -50,6 +49,7 @@ namespace WebIDL2Unity
             return "int";
         }
 
+        // TODO : proper implement nullable argument (now nullable=false always)
         public virtual string GetNETType(bool nullable)
         {
             return Name;
@@ -62,7 +62,7 @@ namespace WebIDL2Unity
 
         public virtual string NETToMarshal(string netValue)
         {
-            return $"{netValue}.ID";
+            return $"{netValue}==null ? 0 : {netValue}.ID";
         }
 
         public virtual string MarshalToJS(string variable)
@@ -70,23 +70,24 @@ namespace WebIDL2Unity
             return $"_WebIDL2Unity.references[{variable}]";
         }
 
+        internal string GetDynCallLetter()
+        {
+            throw new NotImplementedException();
+        }
+
         public virtual string JSToMarshal(string variable, bool nullable)
         {
-            var sb = new StringBuilder();
-
+  
+            
             if (nullable)
             {
-                // check if null or undefined
-                sb.Append($@"
-        if({variable} == null){{
-            return 0;
-        }}");
+                // check if null of undefined
+                return $"{variable}==null ? 0 : _WebIDL2Unity.addReference({variable})";
             }
-
-            sb.Append($@"
-        return _WebIDL2Unity.addReference({variable});
-");
-            return sb.ToString();
+            else
+            {
+                return $"_WebIDL2Unity.addReference({variable})";
+            }
         }
     }
 }

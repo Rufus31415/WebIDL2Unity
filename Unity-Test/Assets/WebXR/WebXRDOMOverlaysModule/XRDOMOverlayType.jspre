@@ -1,4 +1,7 @@
-WebXRDOMOverlaysModule_XRDOMOverlayType = {
+
+if(typeof _WebIDL2UnityEnums == "undefined") _WebIDL2UnityEnums = {}
+
+_WebIDL2UnityEnums.XRDOMOverlayType = {
 "screen":0,
 "floating":1,
 "head-locked":2,

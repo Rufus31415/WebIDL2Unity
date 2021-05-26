@@ -48,6 +48,11 @@ namespace WebIDL2Unity
             return $"Pointer_stringify({variable})";
         }
 
+        public override string JSToMarshal(string variable, bool nullable)
+        {
+            return $"WebIDL2UnityStringToPtr({variable})";
+        }
+
         public override void Generate(GenerationContext context)
         {
             PrimitiveIDLType.GeneratePrimitive(this, context);

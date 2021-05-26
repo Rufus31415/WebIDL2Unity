@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public partial  class XRView : WebIDL2UnityObject {
@@ -10,17 +11,17 @@ public partial  class XRView : WebIDL2UnityObject {
 
     public XREye Eye {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "eye");
+            var value = WebIDL2Unity_XREye_get(this.ID, "eye");
             return (XREye)value;
         }
     }
 
 
 
-    public FrozenArray<float> ProjectionMatrix {
+    public Float32Array ProjectionMatrix {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "projectionMatrix");
-            return new FrozenArray<float>(value);
+            var value = WebIDL2Unity_reference_get(this.ID, "projectionMatrix");
+            return value == 0 ? null : new Float32Array(value);
         }
     }
 
@@ -28,7 +29,7 @@ public partial  class XRView : WebIDL2UnityObject {
 
     public XRRigidTransform Transform {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "transform");
+            var value = WebIDL2Unity_reference_get(this.ID, "transform");
             return value == 0 ? null : new XRRigidTransform(value);
         }
     }
@@ -43,4 +44,12 @@ public partial  class XRView : WebIDL2UnityObject {
     }
 
 
+
+    [DllImport("__Internal")]
+    private static extern int XRView_RequestViewportScale(int id, double scale);
+
+    public void RequestViewportScale(double scale) {
+        XRView_RequestViewportScale(this.ID, scale);
+        
+    }
 }

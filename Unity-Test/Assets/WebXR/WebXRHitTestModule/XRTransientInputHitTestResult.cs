@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRTransientInputHitTestResult : WebIDL2UnityObject {
@@ -10,17 +11,17 @@ public  class XRTransientInputHitTestResult : WebIDL2UnityObject {
 
     public XRInputSource InputSource {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "inputSource");
+            var value = WebIDL2Unity_reference_get(this.ID, "inputSource");
             return value == 0 ? null : new XRInputSource(value);
         }
     }
 
 
 
-    public FrozenArray<XRHitTestResult> Results {
+    public JSArray<XRHitTestResult> Results {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "results");
-            return new FrozenArray<XRHitTestResult>(value);
+            var value = WebIDL2Unity_reference_get(this.ID, "results");
+            return new JSArray<XRHitTestResult>(value);
         }
     }
 

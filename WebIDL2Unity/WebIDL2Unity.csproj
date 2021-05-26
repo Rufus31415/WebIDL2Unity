@@ -47,8 +47,8 @@
     <Compile Include="IDLTypes\AnyIDLType.cs" />
     <Compile Include="IDLTypes\EnumIDLType.cs" />
     <Compile Include="IDLTypes\ExternalDependencieIDLType.cs" />
+    <Compile Include="IDLTypes\PrimitiveArrayIDLType.cs" />
     <Compile Include="IDLTypes\SequenceIDLType.cs" />
-    <Compile Include="IDLTypes\FrozenArrayIDLType.cs" />
     <Compile Include="GenerationContext.cs" />
     <Compile Include="Helper.cs" />
     <Compile Include="IDLTypes\IDLType.cs" />
@@ -56,6 +56,8 @@
     <Compile Include="IDLTypes\InterfaceIDLType.cs" />
     <Compile Include="IDLTypes\DOMStringIDLType.cs" />
     <Compile Include="IDLTypes\PrimitiveIDLType.cs" />
+    <Compile Include="IDLTypes\PromiseIDLType.cs" />
+    <Compile Include="IDLTypes\UndefinedIDLType.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="IDLTypes\TypedefIDLType.cs" />

@@ -1,87 +1,93 @@
-﻿using System.Collections;
+﻿using System;
 using System.Collections.Generic;
 
-public class Sequence<T> : WebIDL2UnityObject
+
+public abstract class Sequence<T> : FrozenArray<T>, IList<T>
 {
     internal Sequence(int id) : base(id)
     {
 
     }
-}
 
-public class FrozenArrayTest<T> : IReadOnlyList<T>
-{
-    public T this[int index] => throw new System.NotImplementedException();
-
-    public int Count => throw new System.NotImplementedException();
-
-    public IEnumerator<T> GetEnumerator()
+    public Sequence() : base(WebIDL2UnityGetNewArray())
     {
-        throw new System.NotImplementedException();
+
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
+
+
+    public void AddRange(IEnumerable<T> array)
     {
-        throw new System.NotImplementedException();
+        foreach (var value in array) Add(value);
     }
-}
+
+    public new T this[int index]
+    {
+        get
+        {
+            return GetElementAt(index);
+        }
+        set
+        {
+            Splice(index, 0, value);
+        }
+    }
+
+    public abstract void Splice(int start, int deleteCount, T item);
+    public abstract void Splice(int start, int deleteCount);
 
 
-public class SequenceTest<T> : IList<T>
-{
-    public T this[int index] { get => throw new System.NotImplementedException(); set => throw new System.NotImplementedException(); }
-
-    public int Count => throw new System.NotImplementedException();
-
-    public bool IsReadOnly => throw new System.NotImplementedException();
+    public bool IsReadOnly => false;
 
     public void Add(T item)
     {
-        throw new System.NotImplementedException();
+        Splice(Count, 0, item);
     }
 
     public void Clear()
     {
-        throw new System.NotImplementedException();
+        Splice(0, Count);
     }
 
     public bool Contains(T item)
     {
-        throw new System.NotImplementedException();
+        return IndexOf(item) >= 0;
     }
+
 
     public void CopyTo(T[] array, int arrayIndex)
     {
-        throw new System.NotImplementedException();
+        var length = Count;
+
+        if (array == null)
+            throw new ArgumentNullException("array");
+        if (arrayIndex < 0)
+            throw new ArgumentOutOfRangeException("arrayIndex");
+        if (array.Length - arrayIndex < length)
+            throw new ArgumentException("Not enough elements after index in the destination array.");
+
+        for (int i = 0; i < length; ++i) array[i + arrayIndex] = GetElementAt(i);
     }
 
-    public IEnumerator<T> GetEnumerator()
-    {
-        throw new System.NotImplementedException();
-    }
+    public abstract int IndexOf(T item);
 
-    public int IndexOf(T item)
-    {
-        throw new System.NotImplementedException();
-    }
 
     public void Insert(int index, T item)
     {
-        throw new System.NotImplementedException();
+        Splice(index, 0, item);
     }
 
     public bool Remove(T item)
     {
-        throw new System.NotImplementedException();
+        int index = IndexOf(item);
+        if (index < 0) return false;
+        RemoveAt(index);
+        return true;
     }
 
     public void RemoveAt(int index)
     {
-        throw new System.NotImplementedException();
+        Splice(index, 1);
     }
 
-    IEnumerator IEnumerable.GetEnumerator()
-    {
-        throw new System.NotImplementedException();
-    }
 }

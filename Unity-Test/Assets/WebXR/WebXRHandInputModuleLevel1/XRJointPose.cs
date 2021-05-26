@@ -1,8 +1,9 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
-public  class XRJointPose : WebIDL2UnityObject {
+public  class XRJointPose : XRPose {
 
 
     internal XRJointPose (int id) : base(id) {}

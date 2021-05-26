@@ -1,5 +1,6 @@
 
 using System;
+using System.Collections.Generic;
 using System.Runtime.InteropServices;
 
 public  class XRRenderStateInit : WebIDL2UnityObject {
@@ -48,23 +49,23 @@ public  class XRRenderStateInit : WebIDL2UnityObject {
 
     public XRWebGLLayer BaseLayer {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "baseLayer");
+            var value = WebIDL2Unity_reference_get(this.ID, "baseLayer");
             return value == 0 ? null : new XRWebGLLayer(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "baseLayer", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "baseLayer", value==null ? 0 : value.ID);
         }
     }
 
 
 
-    public Sequence<XRLayer> Layers {
+    public FrozenArray<XRLayer> Layers {
         get {
-            var value = WebIDL2Unity_short_get(this.ID, "layers");
-            return new Sequence<XRLayer>(value);
+            var value = WebIDL2Unity_reference_get(this.ID, "layers");
+            return new JSArray<XRLayer>(value);
         }
         set {
-            WebIDL2Unity_short_set(this.ID, "layers", value.ID);
+            WebIDL2Unity_reference_set(this.ID, "layers", value==null ? 0 : value.ID);
         }
     }
 
