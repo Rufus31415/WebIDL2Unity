@@ -6,10 +6,12 @@ namespace WebIDL2Unity
     {
 
         private string _netType;
+        private string _dynCallLetter;
 
-        public PrimitiveIDLType(string idlName, string netType) : base(idlName, "Native")
+        public PrimitiveIDLType(string idlName, string netType, string dynCallLetter) : base(idlName, "Native")
         {
             _netType = netType;
+            _dynCallLetter = dynCallLetter;
         }
 
         public override string GetMarshalType()
@@ -36,6 +38,16 @@ namespace WebIDL2Unity
         public override string MarshalToJS(string variable)
         {
             return variable;
+        }
+
+        public override string JSToMarshal(string variable, bool nullable)
+        {
+            return variable;
+        }
+
+        public override string GetDynCallLetter()
+        {
+            return _dynCallLetter;
         }
 
         public override string GetterName()
@@ -71,7 +83,7 @@ public abstract partial class WebIDL2UnityObject
                     jslibFile.Write($@"
 mergeInto(LibraryManager.library, {{
     {type.GetterName()} : function(parentID, fieldName){{
-       return {type.JSToMarshal("_WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)]", false)};
+       {type.JSToMarshalReturn("_WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)]", false)};
     }},
     {type.SetterName()} : function(parentID, fieldName, value){{
         _WebIDL2Unity.references[parentID][Pointer_stringify(fieldName)] = {type.MarshalToJS("value")};

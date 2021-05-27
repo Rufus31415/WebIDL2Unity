@@ -12,14 +12,14 @@ public  class XRSystem : EventTarget {
 
     private static readonly Dictionary<int, Promise<XRSystem_IsSessionSupported_delegate >> XRSystem_IsSessionSupported_promises = new Dictionary<int, Promise<XRSystem_IsSessionSupported_delegate>>();
 
-    public delegate void XRSystem_IsSessionSupported_delegate(bool supported);
+    public delegate void XRSystem_IsSessionSupported_delegate(bool a0);
 
-    private delegate void XRSystem_IsSessionSupported_delegate_native(int promise, bool supported);
+    private delegate void XRSystem_IsSessionSupported_delegate_native(int promise, bool a0);
 
     [AOT.MonoPInvokeCallback(typeof(XRSystem_IsSessionSupported_delegate_native))]
-    private static void XRSystem_IsSessionSupported_promise(int promise, bool supported)
+    private static void XRSystem_IsSessionSupported_promise(int promise, bool a0)
     {
-        XRSystem_IsSessionSupported_promises[promise].AfterCallback(new object[] { supported });
+        XRSystem_IsSessionSupported_promises[promise].AfterCallback(new object[] { a0 });
     }
 
     [DllImport("__Internal")]
@@ -27,21 +27,21 @@ public  class XRSystem : EventTarget {
 
     public Promise<XRSystem_IsSessionSupported_delegate> IsSessionSupported(XRSessionMode mode) {
         var value = XRSystem_IsSessionSupported(this.ID, (int)mode, XRSystem_IsSessionSupported_promise);
-        return value == 0 ? null : new Promise<XRSystem_IsSessionSupported_delegate>(value, XRSystem_IsSessionSupported_promises);;
+        return value == 0 ? null : new Promise<XRSystem_IsSessionSupported_delegate>(value, XRSystem_IsSessionSupported_promises);
     }
 
 
 
     private static readonly Dictionary<int, Promise<XRSystem_RequestSession_delegate >> XRSystem_RequestSession_promises = new Dictionary<int, Promise<XRSystem_RequestSession_delegate>>();
 
-    public delegate void XRSystem_RequestSession_delegate(bool supported);
+    public delegate void XRSystem_RequestSession_delegate(XRSession a0);
 
-    private delegate void XRSystem_RequestSession_delegate_native(int promise, bool supported);
+    private delegate void XRSystem_RequestSession_delegate_native(int promise, int a0);
 
     [AOT.MonoPInvokeCallback(typeof(XRSystem_RequestSession_delegate_native))]
-    private static void XRSystem_RequestSession_promise(int promise, bool supported)
+    private static void XRSystem_RequestSession_promise(int promise, int a0)
     {
-        XRSystem_RequestSession_promises[promise].AfterCallback(new object[] { supported });
+        XRSystem_RequestSession_promises[promise].AfterCallback(new object[] { a0 == 0 ? null : new XRSession(a0) });
     }
 
     [DllImport("__Internal")]
@@ -49,7 +49,7 @@ public  class XRSystem : EventTarget {
 
     public Promise<XRSystem_RequestSession_delegate> RequestSession(XRSessionMode mode, XRSessionInit options) {
         var value = XRSystem_RequestSession(this.ID, (int)mode, options==null ? 0 : options.ID, XRSystem_RequestSession_promise);
-        return value == 0 ? null : new Promise<XRSystem_RequestSession_delegate>(value, XRSystem_RequestSession_promises);;
+        return value == 0 ? null : new Promise<XRSystem_RequestSession_delegate>(value, XRSystem_RequestSession_promises);
     }
 
 

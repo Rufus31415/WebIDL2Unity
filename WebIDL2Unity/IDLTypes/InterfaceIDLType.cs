@@ -66,6 +66,15 @@ namespace WebIDL2Unity
                 }
             }
 
+            if (idlType is SequenceIDLType)
+            {
+                var sequenceIdlType = (SequenceIDLType)idlType;
+
+                var existentSequenceType = context.IDLObjects.OfType<PrimitiveArrayIDLType>().FirstOrDefault(x => x.ElementType.Name == sequenceIdlType.ElementType.Name);
+
+                if (existentSequenceType != null) idlType = existentSequenceType;
+            }
+
             return idlType;
         }
 
@@ -267,18 +276,21 @@ public {(isNetPartialClass ? "partial " : "")} class {Name} : {(string.IsNullOrE
 
                                     if (isPromise)
                                     {
+                                        var promise = (PromiseIDLType)returnType;
+
+                                        var nativeArguments = $"int promise{string.Join("", promise.Args.Select(x => $", {x.Value.GetMarshalType()} {x.Key}").ToArray())}";
                                         csFile.Write($@"
 
     private static readonly Dictionary<int, Promise<{fullName}_delegate >> {fullName}_promises = new Dictionary<int, Promise<{fullName}_delegate>>();
 
-    public delegate void {fullName}_delegate(bool supported{/*to be continued here*/});
+    public delegate void {fullName}_delegate({string.Join(", ",promise.Args.Select(x=>$"{x.Value.GetNETType(false)} {x.Key}").ToArray())});
 
-    private delegate void {fullName}_delegate_native(int promise, bool supported);
+    private delegate void {fullName}_delegate_native({nativeArguments});
 
     [AOT.MonoPInvokeCallback(typeof({fullName}_delegate_native))]
-    private static void {fullName}_promise(int promise, bool supported)
+    private static void {fullName}_promise({nativeArguments})
     {{
-        {fullName}_promises[promise].AfterCallback(new object[] {{ supported }});
+        {fullName}_promises[promise].AfterCallback(new object[] {{ {string.Join(", ", promise.Args.Select(x => x.Value.MarshalToNET(x.Key)).ToArray())} }});
     }}
 ");
                                     }
@@ -294,9 +306,9 @@ public {(isNetPartialClass ? "partial " : "")} class {Name} : {(string.IsNullOrE
 ");
 
                                     jsLibElements.Add($@"
-    {fullName} : function(id{string.Join("", arguments.Select(x => $", {x.Key}").ToArray())}) {{
+    {fullName} : function(id{string.Join("", arguments.Select(x => $", {x.Key}").ToArray())}{(isPromise ? $", callback" : "")}) {{
         {(shouldReturnValue ? "var value = " : "")}_WebIDL2Unity.references[id].{nativeName}({string.Join(", ", arguments.Select(x => $"{x.Value.MarshalToJS(x.Key)}").ToArray())});
-        {(shouldReturnValue ? $"return {returnType.JSToMarshal("value", false)};" : "")}
+        {(shouldReturnValue ? $"{returnType.JSToMarshalReturn("value", false)}" : "")}
     }}
 ");
 

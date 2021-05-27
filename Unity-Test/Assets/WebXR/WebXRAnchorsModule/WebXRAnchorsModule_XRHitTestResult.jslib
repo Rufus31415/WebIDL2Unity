@@ -1,17 +1,16 @@
 
 mergeInto(LibraryManager.library, {
 
-    XRHitTestResult_CreateAnchor : function(id) {
+    XRHitTestResult_CreateAnchor : function(id, callback) {
         var value = _WebIDL2Unity.references[id].createAnchor();
-        return 
+        
         var promise =  _WebIDL2Unity.addReference(value);
 
-        value.then(function(supported){
-            Module["dynCall_iiii"](callback, promise, supported)
+        value.then(function(a0){
+            Module["dynCall_vii"](callback, promise, _WebIDL2Unity.addReference(a0));
         });
 
         return promise;
-;
     }
 
 });

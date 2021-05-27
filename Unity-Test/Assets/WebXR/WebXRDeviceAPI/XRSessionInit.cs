@@ -11,7 +11,7 @@ public partial  class XRSessionInit : WebIDL2UnityObject {
     public XRSessionInit() : base(WebIDL2UnityGetNewDictionnary()) { }
 
 
-    public FrozenArray<string> RequiredFeatures {
+    public StringArray RequiredFeatures {
         get {
             var value = WebIDL2Unity_reference_get(this.ID, "requiredFeatures");
             return value == 0 ? null : new StringArray(value);
@@ -23,7 +23,7 @@ public partial  class XRSessionInit : WebIDL2UnityObject {
 
 
 
-    public FrozenArray<string> OptionalFeatures {
+    public StringArray OptionalFeatures {
         get {
             var value = WebIDL2Unity_reference_get(this.ID, "optionalFeatures");
             return value == 0 ? null : new StringArray(value);

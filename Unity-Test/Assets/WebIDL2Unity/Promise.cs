@@ -3,8 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using UnityEngine;
 
 public class Promise<T> : WebIDL2UnityObject where T : Delegate
 {
@@ -23,7 +22,9 @@ public class Promise<T> : WebIDL2UnityObject where T : Delegate
 
     internal void AfterCallback(object[] args)
     {
+        Debug.Log("callback!!");
         _promises.Remove(ID);
+        _promises = null;
 
         _args = args;
 

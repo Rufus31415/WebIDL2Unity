@@ -22,16 +22,16 @@ namespace WebIDL2Unity
 
             var anyIDLType = idlTypes.AddNew(new AnyIDLType());
 
-            var booleanIDLType= idlTypes.AddNew(new PrimitiveIDLType("boolean", "bool"));
+            var booleanIDLType= idlTypes.AddNew(new PrimitiveIDLType("boolean", "bool", "i"));
 
-            var doubleIDLType = idlTypes.AddNew(new PrimitiveIDLType("double", "double"));
-            var floatIDLType = idlTypes.AddNew(new PrimitiveIDLType("float", "float"));
-            var ulongIDLType = idlTypes.AddNew(new PrimitiveIDLType("unsigned long", "ulong"));
-            var longIDLType = idlTypes.AddNew(new PrimitiveIDLType("long", "long"));
-            var sbyteIDLType = idlTypes.AddNew(new PrimitiveIDLType("byte", "sbyte"));
-            var byteIDLType = idlTypes.AddNew(new PrimitiveIDLType("octet", "byte"));
-            var uintIDLType = idlTypes.AddNew(new PrimitiveIDLType("unsigned short", "uint"));
-            var intIDLType = idlTypes.AddNew(new PrimitiveIDLType("short", "int"));
+            var doubleIDLType = idlTypes.AddNew(new PrimitiveIDLType("double", "double", "d"));
+            var floatIDLType = idlTypes.AddNew(new PrimitiveIDLType("float", "float", "f"));
+            var ulongIDLType = idlTypes.AddNew(new PrimitiveIDLType("unsigned long", "ulong","j"));
+            var longIDLType = idlTypes.AddNew(new PrimitiveIDLType("long", "long","j"));
+            var sbyteIDLType = idlTypes.AddNew(new PrimitiveIDLType("byte", "sbyte", "i"));
+            var byteIDLType = idlTypes.AddNew(new PrimitiveIDLType("octet", "byte", "i"));
+            var uintIDLType = idlTypes.AddNew(new PrimitiveIDLType("unsigned short", "uint", "i"));
+            var intIDLType = idlTypes.AddNew(new PrimitiveIDLType("short", "int", "i"));
 
             idlTypes.Add(new PrimitiveArrayIDLType(floatIDLType, "Float32Array"));
             idlTypes.Add(new PrimitiveArrayIDLType(sbyteIDLType, "Int8Array"));

@@ -10,7 +10,7 @@ namespace WebIDL2Unity
         private string _className;
         private string _methodName;
 
-        private readonly Dictionary<string, IDLType> Args = new Dictionary<string, IDLType>();
+        public readonly Dictionary<string, IDLType> Args = new Dictionary<string, IDLType>();
 
         public PromiseIDLType(JToken member, GenerationContext context) : base("Promise", "Native")
         {
@@ -23,6 +23,7 @@ namespace WebIDL2Unity
                 var typeName = arg.Value<string>("idlType");
                 if (context.IDLObjects.TryGetValue(typeName, out IDLType type))
                 {
+                    if (type is UndefinedIDLType) continue;
                     Args["a" + i] = type;
                 }
                 else
@@ -42,7 +43,7 @@ namespace WebIDL2Unity
 
         public override string MarshalToNET(string nativeValue)
         {
-            return $"{nativeValue} == 0 ? null : new {GetNETType(false)}(value, {_className}_{_methodName}_promises);";
+            return $"{nativeValue} == 0 ? null : new {GetNETType(false)}(value, {_className}_{_methodName}_promises)";
         }
 
         public override string GetNETType(bool nullable)
@@ -50,18 +51,22 @@ namespace WebIDL2Unity
             return $"Promise<{_className}_{_methodName}_delegate>";
         }
 
-
         public override string JSToMarshal(string variable, bool nullable)
+        {
+            throw new NotImplementedException("Cannot marshal a promise");
+        }
+
+
+        public override string JSToMarshalReturn(string variable, bool nullable)
         {
             return $@"
         var promise =  _WebIDL2Unity.addReference(value);
 
-        value.then(function(supported){{
-            Module[""dynCall_ii{string.Join("", Args.Values.Select(x=>x.GetDynCallLetter()).ToArray())}""](callback, promise, {string.Join(", ", Args.Keys.ToArray())})
+        value.then(function({string.Join(", ", Args.Keys.ToArray())}){{
+            Module[""dynCall_vi{string.Join("", Args.Values.Select(x=>x.GetDynCallLetter()).ToArray())}""](callback, promise{string.Join("", Args.Select(x=> $", {x.Value.JSToMarshal(x.Key, false)}").ToArray())});
         }});
 
-        return promise;
-";
+        return promise;";
         }
 
         /* dyncall prototypes

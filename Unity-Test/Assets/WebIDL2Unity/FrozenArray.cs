@@ -4,6 +4,7 @@ using System.Collections.Generic;
 
 public abstract class FrozenArray<T> : WebIDL2UnityObject, IReadOnlyList<T>
 {
+
     internal FrozenArray(int id) : base(id)
     {
     }

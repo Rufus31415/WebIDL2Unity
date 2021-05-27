@@ -10,6 +10,7 @@ public class Test : MonoBehaviour
 
     private EnumArray<XREye> _arrayEnum;
 
+    private XRSession _session;
 
     int[] testArray;
 
@@ -62,12 +63,53 @@ public class Test : MonoBehaviour
 
         }
 
-        if (GUI.Button(new Rect(400, 0, 100, 100), "navigator"))
+        if (GUI.Button(new Rect(400, 0, 100, 100), "IsSessionSupported"))
         {
 
-            var change = NativeJS.Navigator.Xr.IsSessionSupported(XRSessionMode.ImmersiveAr);
+            var promise = NativeJS.Navigator.Xr.IsSessionSupported(XRSessionMode.ImmersiveAr);
 
-           
+            promise.Then((supported) =>
+            {
+                Debug.Log("AR supported: " + supported);
+            });
+
+            NativeJS.Navigator.Xr.IsSessionSupported(XRSessionMode.ImmersiveVr).Then((supported) =>
+            {
+                Debug.Log("VR supported: " + supported);
+            });
+
+
+
+        }
+        if (GUI.Button(new Rect(500, 0, 100, 100), "RequestSession"))
+        {
+            var options = new XRSessionInit();
+            options.OptionalFeatures = new string[] { "local-floor", "hand-tracking" };
+  
+
+            NativeJS.Navigator.Xr.RequestSession(XRSessionMode.ImmersiveVr, options).Then((x)=>
+            {
+                Debug.Log("got session");
+                _session = x;
+            });
+
+
+
+        }
+
+        if (GUI.Button(new Rect(600, 0, 100, 100), "_session"))
+        {
+            _session.RequestReferenceSpace(XRReferenceSpaceType.Local).Then(x =>
+            {
+                Debug.Log("RequestReferenceSpace");
+            });
+
+            Debug.Log("Input sources : " + _session.InputSources.Length);
+
+          for(int i=0;i< _session.InputSources[0].Profiles.Count; i++)
+            {
+                Debug.Log("profile : " + _session.InputSources[0].Profiles[i]);
+            }
         }
 
     }

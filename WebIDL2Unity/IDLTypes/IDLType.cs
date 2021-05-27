@@ -70,15 +70,18 @@ namespace WebIDL2Unity
             return $"_WebIDL2Unity.references[{variable}]";
         }
 
-        internal string GetDynCallLetter()
+        public virtual string GetDynCallLetter()
         {
-            throw new NotImplementedException();
+            return "i";
+        }
+
+        public virtual string JSToMarshalReturn(string variable, bool nullable)
+        {
+            return $"return {JSToMarshal(variable, nullable)};";
         }
 
         public virtual string JSToMarshal(string variable, bool nullable)
         {
-  
-            
             if (nullable)
             {
                 // check if null of undefined

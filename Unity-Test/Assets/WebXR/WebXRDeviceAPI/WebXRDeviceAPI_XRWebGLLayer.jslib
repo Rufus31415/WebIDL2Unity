@@ -14,7 +14,7 @@ mergeInto(LibraryManager.library, {
 
     XRWebGLLayer_GetNativeFramebufferScaleFactor : function(id, session) {
         var value = _WebIDL2Unity.references[id].getNativeFramebufferScaleFactor(_WebIDL2Unity.references[session]);
-        return _WebIDL2Unity.addReference(value);
+        return value;
     }
 
 });

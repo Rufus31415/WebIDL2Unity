@@ -48,7 +48,8 @@ namespace WebIDL2Unity
             return $"Pointer_stringify({variable})";
         }
 
-        public override string JSToMarshal(string variable, bool nullable)
+
+        public override string JSToMarshalReturn(string variable, bool nullable)
         {
             return $"WebIDL2UnityStringToPtr({variable})";
         }

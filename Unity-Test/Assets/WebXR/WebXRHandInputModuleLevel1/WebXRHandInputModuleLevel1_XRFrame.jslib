@@ -9,13 +9,13 @@ mergeInto(LibraryManager.library, {
 
     XRFrame_FillJointRadii : function(id, jointSpaces, radii) {
         var value = _WebIDL2Unity.references[id].fillJointRadii(_WebIDL2Unity.references[jointSpaces], _WebIDL2Unity.references[radii]);
-        return _WebIDL2Unity.addReference(value);
+        return value;
     }
 ,
 
     XRFrame_FillPoses : function(id, spaces, baseSpace, transforms) {
         var value = _WebIDL2Unity.references[id].fillPoses(_WebIDL2Unity.references[spaces], _WebIDL2Unity.references[baseSpace], _WebIDL2Unity.references[transforms]);
-        return _WebIDL2Unity.addReference(value);
+        return value;
     }
 
 });

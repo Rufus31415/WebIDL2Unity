@@ -48,14 +48,14 @@ public partial  class XRSession : EventTarget {
 
     private static readonly Dictionary<int, Promise<XRSession_RequestReferenceSpace_delegate >> XRSession_RequestReferenceSpace_promises = new Dictionary<int, Promise<XRSession_RequestReferenceSpace_delegate>>();
 
-    public delegate void XRSession_RequestReferenceSpace_delegate(bool supported);
+    public delegate void XRSession_RequestReferenceSpace_delegate(XRReferenceSpace a0);
 
-    private delegate void XRSession_RequestReferenceSpace_delegate_native(int promise, bool supported);
+    private delegate void XRSession_RequestReferenceSpace_delegate_native(int promise, int a0);
 
     [AOT.MonoPInvokeCallback(typeof(XRSession_RequestReferenceSpace_delegate_native))]
-    private static void XRSession_RequestReferenceSpace_promise(int promise, bool supported)
+    private static void XRSession_RequestReferenceSpace_promise(int promise, int a0)
     {
-        XRSession_RequestReferenceSpace_promises[promise].AfterCallback(new object[] { supported });
+        XRSession_RequestReferenceSpace_promises[promise].AfterCallback(new object[] { a0 == 0 ? null : new XRReferenceSpace(a0) });
     }
 
     [DllImport("__Internal")]
@@ -63,7 +63,7 @@ public partial  class XRSession : EventTarget {
 
     public Promise<XRSession_RequestReferenceSpace_delegate> RequestReferenceSpace(XRReferenceSpaceType type) {
         var value = XRSession_RequestReferenceSpace(this.ID, (int)type, XRSession_RequestReferenceSpace_promise);
-        return value == 0 ? null : new Promise<XRSession_RequestReferenceSpace_delegate>(value, XRSession_RequestReferenceSpace_promises);;
+        return value == 0 ? null : new Promise<XRSession_RequestReferenceSpace_delegate>(value, XRSession_RequestReferenceSpace_promises);
     }
 
 
@@ -88,14 +88,14 @@ public partial  class XRSession : EventTarget {
 
     private static readonly Dictionary<int, Promise<XRSession_End_delegate >> XRSession_End_promises = new Dictionary<int, Promise<XRSession_End_delegate>>();
 
-    public delegate void XRSession_End_delegate(bool supported);
+    public delegate void XRSession_End_delegate();
 
-    private delegate void XRSession_End_delegate_native(int promise, bool supported);
+    private delegate void XRSession_End_delegate_native(int promise);
 
     [AOT.MonoPInvokeCallback(typeof(XRSession_End_delegate_native))]
-    private static void XRSession_End_promise(int promise, bool supported)
+    private static void XRSession_End_promise(int promise)
     {
-        XRSession_End_promises[promise].AfterCallback(new object[] { supported });
+        XRSession_End_promises[promise].AfterCallback(new object[] {  });
     }
 
     [DllImport("__Internal")]
@@ -103,7 +103,7 @@ public partial  class XRSession : EventTarget {
 
     public Promise<XRSession_End_delegate> End() {
         var value = XRSession_End(this.ID, XRSession_End_promise);
-        return value == 0 ? null : new Promise<XRSession_End_delegate>(value, XRSession_End_promises);;
+        return value == 0 ? null : new Promise<XRSession_End_delegate>(value, XRSession_End_promises);
     }
 
 

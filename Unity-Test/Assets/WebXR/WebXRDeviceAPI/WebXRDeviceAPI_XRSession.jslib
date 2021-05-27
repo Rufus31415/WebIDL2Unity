@@ -7,23 +7,22 @@ mergeInto(LibraryManager.library, {
     }
 ,
 
-    XRSession_RequestReferenceSpace : function(id, type) {
+    XRSession_RequestReferenceSpace : function(id, type, callback) {
         var value = _WebIDL2Unity.references[id].requestReferenceSpace(_WebIDL2UnityEnums.XRReferenceSpaceType[type]);
-        return 
+        
         var promise =  _WebIDL2Unity.addReference(value);
 
-        value.then(function(supported){
-            Module["dynCall_iiii"](callback, promise, supported)
+        value.then(function(a0){
+            Module["dynCall_vii"](callback, promise, _WebIDL2Unity.addReference(a0));
         });
 
         return promise;
-;
     }
 ,
 
     XRSession_RequestAnimationFrame : function(id) {
         var value = _WebIDL2Unity.references[id].requestAnimationFrame();
-        return _WebIDL2Unity.addReference(value);
+        return value;
     }
 ,
 
@@ -33,17 +32,16 @@ mergeInto(LibraryManager.library, {
     }
 ,
 
-    XRSession_End : function(id) {
+    XRSession_End : function(id, callback) {
         var value = _WebIDL2Unity.references[id].end();
-        return 
+        
         var promise =  _WebIDL2Unity.addReference(value);
 
-        value.then(function(supported){
-            Module["dynCall_iiii"](callback, promise, supported)
+        value.then(function(){
+            Module["dynCall_vi"](callback, promise);
         });
 
         return promise;
-;
     }
 
 });
