@@ -2,7 +2,7 @@
 
 **WebIDL2Unity** is a prototype of a powerful tool designed to automatically convert JavaScript API specifications written in **WebIDL** format into **C# code for Unity**.
 
-For example, it can take a web specification such as [WebXR](https://immersive-web.github.io/webxr/) and generate the corresponding Unity-compatible C# bindings, as shown in this repository: [WebXRDeviceAPI for Unity](https://github.com/Rufus31415/WebIDL2Unity/tree/main/Unity-Test/Assets/WebXR/WebXRDeviceAPI).
+For example, it can take a web specification (like this URL : [WebXR](https://immersive-web.github.io/webxr/)) and generate the corresponding Unity-compatible C# bindings, as shown in this repository: [WebXRDeviceAPI for Unity](https://github.com/Rufus31415/WebIDL2Unity/tree/main/Unity-Test/Assets/WebXR/WebXRDeviceAPI).
 
 This project is not an empty shell — when you compile your Unity project and call the generated C# functions (which mirror the JavaScript APIs defined in the WebIDL), those calls are executed directly in JavaScript through the WebAssembly layer produced by Unity’s WebGL build.
 
